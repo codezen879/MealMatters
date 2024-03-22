@@ -13,7 +13,7 @@ const router = Router();
 
 router.route("/nearBy").post(getNearByFood);
 router.route("/foodDonate").post(verifyJWT, foodDonate);
-router.route("/getAllDonations").get(verifyJWT, getAllDonations);
+router.route("/getAllDonations").get(getAllDonations);
 router.route("/addToWaitingList/:donationId").get(verifyJWT, addToWaitingList);
 router
   .route("/assignDonationToUser/:donationId/:userId")

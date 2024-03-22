@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DonationModal from "/src/components/DonationModal";
 import { Button } from "@/components/ui/button";
 import HeroImage from "../Images/HeroImage2.jpg";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State to control Dialog visibility
@@ -11,6 +12,9 @@ const Home = () => {
         setIsDialogOpen(false); // Close the Dialog modal
         setIsDonationModalOpen(true); // Open the DonationModal
     };
+    const handlehelp = () => {
+        
+    }
 
     return (
         <>
@@ -24,8 +28,7 @@ const Home = () => {
                     <div className="absolute inset-0 flex items-center justify-center">
                         <Button
                             className="text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 mt-80 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"
-                            onClick={() => setIsDialogOpen(true)}
-                        >
+                            onClick={() => setIsDialogOpen(true)}>
                             Get Started
                         </Button>
                     </div>
@@ -36,28 +39,33 @@ const Home = () => {
                     <div className="bg-white p-8 rounded-lg relative">
                         <button
                             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                            onClick={() => setIsDialogOpen(false)}
-                        >
+                            onClick={() => setIsDialogOpen(false)}>
                             &#x2715; {/* Close symbol */}
                         </button>
-                        <h2 className="text-3xl mb-4">From Access to Empathy</h2>
+                        <h2 className="text-3xl mb-4">
+                            From Access to Empathy
+                        </h2>
                         <div className="flex justify-center gap-3">
                             <button
                                 className="w-[150px] h-[100px] bg-green-500 text-white text-[24px] text-lg font-bold rounded-lg"
-                                onClick={handleDonateNow}
-                            >
+                                onClick={handleDonateNow}>
                                 Donate Now
                             </button>
-                            <button className="w-[150px] h-[100px] bg-red-800 text-white text-lg font-bold rounded-lg">
+                            <button className="w-[150px] h-[100px] bg-red-800 text-white text-lg font-bold rounded-lg" onClick={handlehelp}>
+                            <Link to="/help" className="w-[150px] h-[100px] bg-red-800 text-white text-lg font-bold rounded-lg">
                                 <span className="text-[24px]">
                                     Help Someone
                                 </span>
+                            </Link>
                             </button>
                         </div>
                     </div>
                 </div>
             )}
-            <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+            <DonationModal
+                isOpen={isDonationModalOpen}
+                onClose={() => setIsDonationModalOpen(false)}
+            />
         </>
     );
 };
