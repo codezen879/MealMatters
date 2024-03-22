@@ -20,7 +20,10 @@ const LoginPage = () => {
     e.preventDefault();
     // Here you can add your login logic
     const reponse = await axios.post("http://localhost:8000/api/v1/users/login", formData);
+    console.log(reponse.data);
     if(reponse.data.statusCode === 200) {
+
+      localStorage.setItem('donorID', reponse.data.data.user._id);
       toast.success("Login Successfull");
       navigate("/home");
     }

@@ -12,11 +12,11 @@ import {
 const router = Router();
 
 router.route("/nearBy").post(getNearByFood);
-router.route("/foodDonate").post(verifyJWT, foodDonate);
+router.route("/foodDonate").post(foodDonate);
 router.route("/getAllDonations").get(getAllDonations);
-router.route("/addToWaitingList/:donationId").get(verifyJWT, addToWaitingList);
+router.route("/addToWaitingList/:donationId").get(addToWaitingList);
 router
   .route("/assignDonationToUser/:donationId/:userId")
-  .get(verifyJWT, assignDonationToUser);
+  .get(assignDonationToUser);
 
 export default router;

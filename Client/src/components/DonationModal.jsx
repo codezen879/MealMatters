@@ -1,26 +1,28 @@
-import React, { useState,useEffect } from "react";
-import * as OpenCageGeocode from "opencage-api-client";
-
-
+import React, { useState } from "react";
+import axios from "axios";
 function DonationModal({ isOpen, onClose }) {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onClose();
-    };
-    // const donationsubmit = (e) => {
-    //     e.preventDefault(); 
-    //     const name = document.getElementById("name").value;
-    //     const contact = document.getElementById("contact").value;
-    //     const address = document.getElementById("address").value;
-    //     const foodType = document.getElementById("foodType").value;
-    //     const message = document.getElementById("message").value;
-    //     const files = document.getElementById("files").files;
-    //     console.log(name, contact, address, foodType, message, files);
-    // };
+    let [formData, setFormData] = useState({
+        donorName: "",
+        contactNumber: "",
+        donorAddress: "",
+        foodType: "",
+        foodDetails: "",
+        expirationDate: "",
+        quantity: 0,
+        photos: [], // For file upload
+    });
 
-    const [manualInput, setManualInput] = useState(false); // State for manual input
-    const [liveLocation, setLiveLocation] = useState(false); // State for live location
-    const [addressDetails, setAddressDetails] = useState(""); // State for address details
+    const [addressDetails, setAddressDetails] = useState("");
+    const [latitude, setLatitude ] = useState("");
+    const [longitude, setLongitude ] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const getAddressFromCoords = (latitude, longitude) => {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
@@ -31,14 +33,13 @@ function DonationModal({ isOpen, onClose }) {
                 if (data.error) {
                     setAddressDetails("Could not fetch address details.");
                 } else {
-                  const city = data.address.town ;
-                  const postcode = data.address.postcode;
-                  const country = data.address.country;
-                    setAddressDetails(`${city}, ${postcode}, ${country}`);
-                    console.log(
-                        `Current city: ${city}, postcode: ${postcode}, country: ${country}`,
-                    );
-                    console.log( city, postcode, country);
+                    const { town, postcode, country } = data.address;
+                    const addressString = `${town}, ${postcode}, ${country}`;
+                    setAddressDetails(addressString);
+                    setFormData(prevState => ({
+                        ...prevState,
+                        donorAddress: addressString
+                    }));
                 }
             })
             .catch((error) => {
@@ -46,120 +47,109 @@ function DonationModal({ isOpen, onClose }) {
                 console.error("Error fetching address details:", error);
             });
     };
-    useEffect(() => {
-      if (isOpen) {
-          document.body.style.overflow = "hidden";
-      } else {
-          document.body.style.overflow = "auto";
-      }
 
-      return () => {
-          document.body.style.overflow = "auto";
-      };
-  }, [isOpen]);
+    const handleUseCurrentLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                setLatitude(latitude);
+                setLongitude(longitude);
+                console.log(latitude, longitude)
+                getAddressFromCoords(latitude, longitude);
+            },
+            (error) => {
+                console.error("Error getting location:", error);
+            },
+        );
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // Form submission logic here
+        let location={latitude, longitude, addressDetails}
+        let postal_code="1212"
+        let donorID=localStorage.getItem('donorID');
+        formData={...formData,location,donorID,postal_code}
+        console.log({formData});
+        // let user=await axios.get("http://localhost:8000/api/v1/users/current-user");
+        // console.log({user});
+        const reponse = await axios.post("http://localhost:8000/api/v1/food/foodDonate", formData);
+        console.log(reponse.data);
+
+        onClose();
+    };
 
     if (!isOpen) return null;
 
     return (
         <div className="fixed top-0 left-0 w-full h-screen bg-gray-800 bg-opacity-50 flex items-center justify-center z-20 my-10">
-            <div className="bg-white p-8 rounded-lg w-[1000px] mx-5 "style={{ maxHeight: "calc(100vh - 120px)", overflowY: "auto"}} >
-            <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-green-700 text-2xl font-bold">Excess to Empathy</h2>
+            <div
+                className="bg-white p-8 rounded-lg w-[1000px] mx-5 "
+                style={{ maxHeight: "calc(100vh - 120px)", overflowY: "auto" }}>
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-green-700 text-2xl font-bold">
+                        Excess to Empathy
+                    </h2>
                     <button
-                    onClick={onClose}
-                    className="relative right-0 m-4 bg-[#8b0000] text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                    Close
-                </button>
+                        onClick={onClose}
+                        className="relative right-0 m-4 bg-[#8b0000] text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        Close
+                    </button>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label
-                            htmlFor="name"
+                            htmlFor="donorName"
                             className="block text-sm font-medium text-gray-700">
                             Donor's Name
                         </label>
                         <input
                             type="text"
-                            id="name"
-                            name="name"
+                            id="donorName"
+                            name="donorName"
+                            value={formData.donorName}
+                            onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="contact"
+                            htmlFor="contactNumber"
                             className="block text-sm font-medium text-gray-700">
-                            Donor's Contact Number
+                            Contact Number
                         </label>
                         <input
-                            type="number"
-                            id="contact"
-                            name="contact"
+                            type="text"
+                            id="contactNumber"
+                            name="contactNumber"
+                            value={formData.contactNumber}
+                            onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="address"
+                            htmlFor="donorAddress"
                             className="block text-sm font-medium text-gray-700">
                             Donor's Address
                         </label>
-                        <select
-                            id="address"
-                            name="address"
+                        <input
+                            type="text"
+                            id="donorAddress"
+                            name="donorAddress"
+                            value={formData.donorAddress}
+                            onChange={handleChange}
                             required
-                            onChange={(e) => {
-                                setManualInput(e.target.value === "manual");
-                                setLiveLocation(e.target.value === "live");
-                            }}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Select Address Option</option>
-                            <option value="manual">Enter manually</option>
-                            <option value="live">Use live location</option>
-                        </select>
-                        {manualInput && (
-                            <input
-                                type="text"
-                                id="manualAddress"
-                                name="manualAddress"
-                                placeholder="Enter address manually"
-                                required
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            />
-                        )}
-                        {liveLocation && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    navigator.geolocation.getCurrentPosition(
-                                        (position) => {
-                                            const { latitude, longitude } =
-                                                position.coords;
-                                            getAddressFromCoords(
-                                                latitude,
-                                                longitude,
-                                            );
-                                            console.log(latitude, longitude);
-                                        },
-                                        (error) => {
-                                            console.error(
-                                                "Error getting location:",
-                                                error,
-                                            );
-                                        },
-                                    );
-                                }}
-                                className="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                                Use Current Location
-                            </button>
-                        )}
-                        {addressDetails && (
-                            <p className="mt-2 text-sm text-gray-500">
-                                {addressDetails}
-                            </p>
-                        )}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        />
+                         <button
+                            type="button"
+                            onClick={handleUseCurrentLocation}
+                            className="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            Use Current Location
+                        </button>
                     </div>
                     <div className="mb-4">
                         <label
@@ -170,6 +160,7 @@ function DonationModal({ isOpen, onClose }) {
                         <select
                             id="foodType"
                             name="foodType"
+                            onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Select Food Type</option>
@@ -179,30 +170,29 @@ function DonationModal({ isOpen, onClose }) {
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="message"
+                            htmlFor="foodDetails"
                             className="block text-sm font-medium text-gray-700">
                             Food Details
                         </label>
                         <textarea
-                            id="message"
-                            name="message"
-                            rows="2"
+                            id="foodDetails"
+                            name="foodDetails"
+                            value={formData.foodDetails}
+                            onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="message"
+                            htmlFor="expirationDate"
                             className="block text-sm font-medium text-gray-700">
-                            Time for which this food will be available
+                            Availability Time
                         </label>
                         <select
-                            id="foodType"
-                            name="foodType"
+                            id="expirationDate"
+                            name="expirationDate"
                             required
-                            onChange={(e) =>
-                                setManualInput(e.target.value === "manual")
-                            }
+                            onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Select maximum hours</option>
                             <option value="1-4">1 - 4 hrs</option>
@@ -215,57 +205,54 @@ function DonationModal({ isOpen, onClose }) {
                             </option>
                             <option value="manual">Enter manually</option>
                         </select>
-                        {manualInput && (
-                            <input
-                                type="number"
-                                id="manualTime"
-                                name="manualTime"
-                                placeholder="Enter manually in hours"
-                                required
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            />
-                        )}
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="contact"
+                            htmlFor="quantity"
                             className="block text-sm font-medium text-gray-700">
-                           Food Quantity (In Kg)
+                            Food Quantity
                         </label>
                         <input
                             type="number"
-                            id="Quantity"
-                            name="Quantity"
+                            id="quantity"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                     </div>
+                    {/* File upload field */}
                     <div className="mb-4">
                         <label
-                            htmlFor="files"
+                            htmlFor="photos"
                             className="block text-sm font-medium text-gray-700">
                             Upload Photos of Food
                         </label>
                         <input
                             type="file"
-                            id="files"
-                            name="files"
+                            id="photos"
+                            name="photos"
                             accept=".jpg,.jpeg,.png,.pdf"
                             multiple
+                            onChange={(e) => {
+                                const files = Array.from(e.target.files);
+                                setFormData((prevState) => ({
+                                    ...prevState,
+                                    photos: files,
+                                }));
+                            }}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                     </div>
                     <div className="mb-4">
-                    <button
-                        type="submit"
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                        //  onClick={donationsubmit}
-                        >
-                        Donate Now 
-                    </button>
+                        <button
+                            type="submit"
+                            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                            Donate Now
+                        </button>
                     </div>
                 </form>
-               
             </div>
         </div>
     );

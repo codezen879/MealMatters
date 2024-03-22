@@ -11,10 +11,10 @@ import {
 
 const router = Router();
 
-router.route("/review-donation").post(verifyJWT, reviewDonation);
-router.route("/delete-review/:id").get(verifyJWT, deleteReviewById);
-router.route("/getRiviewById/:id").get(verifyJWT, getReviewById);
-router.route("/getAllReviews").get(verifyJWT, getAllReviews);
-router.route("/getReviewByDonationId/:id").get(verifyJWT, getReviewByDonorId);
+router.route("/review-donation").post(reviewDonation);
+router.route("/delete-review/:id").get(deleteReviewById);
+router.route("/getRiviewById/:id").get(getReviewById);
+router.route("/getAllReviews").get(getAllReviews);
+router.route("/getReviewByDonationId/:id").get(getReviewByDonorId);
 
 export default router;

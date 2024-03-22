@@ -1,35 +1,29 @@
 import mongoose from "mongoose";
 
-const locationSchema = new mongoose.Schema({
+const locationSchema = new mongoose.Schema(
+  {
     latitude: {
-        type: Number,
-        required: true,
+      type: Number,
     },
     longitude: {
-        type: Number,
-        required: true,
+      type: Number,
     },
     address: {
-        type: String,
-        required: true,
+      type: String,
     },
     city: {
-        type: String,
-        required: true,
+      type: String,
     },
     state: {
-        type: String,
-        required: true,
+      type: String,
     },
     country: {
-        type: String,
-        required: true,
-    }
-    ,
-    postal_code: {
-        type: String,
-        required: true,
+      type: String,
     },
-
-},{ timestamps: true });
+    postal_code: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 export const Location = mongoose.model("Location", locationSchema);

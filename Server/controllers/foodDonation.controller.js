@@ -4,18 +4,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Location } from "../models/location.model.js";
 
 const foodDonate = asyncHandler(async (req, res) => {
-  const {
-    donorID,
-    foodType,
-    quantity,
-    expirationDate,
-    pickupAvailable,
-    deliveryAvailable,
-    status,
-    location,
-  } = req.body;
-  const { latitude, longitude, address, city, state, country, postal_code } =
-    location;
+  const { donorID, foodType, foodDetails, quantity, expirationDate, location } = req.body;
+  const { latitude, longitude, addressDetails } = location;
 
   // if (
   //   [
@@ -36,11 +26,7 @@ const foodDonate = asyncHandler(async (req, res) => {
   const locations = await Location.create({
     latitude,
     longitude,
-    address,
-    city,
-    state,
-    country,
-    postal_code,
+    addressDetails,
   });
 
   const location_id = locations._id.toString();
@@ -48,11 +34,9 @@ const foodDonate = asyncHandler(async (req, res) => {
   const foodDonateDetail = await FoodDonation.create({
     donorID,
     foodType,
+    foodDetails,
     quantity,
     expirationDate,
-    pickupAvailable,
-    deliveryAvailable,
-    status,
     location: location_id,
   });
 

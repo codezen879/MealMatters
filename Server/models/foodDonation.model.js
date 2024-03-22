@@ -5,19 +5,18 @@ const foodDonationSchema = new mongoose.Schema(
     donorID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     foodType: {
       type: String,
-      required: true,
+    },
+    foodDetails: {
+      type: String,
     },
     quantity: {
       type: Number,
-      required: true,
     },
     expirationDate: {
-      type: Date,
-      required: true,
+      type: String,
     },
     location: {
       type: mongoose.Schema.Types.ObjectId,
