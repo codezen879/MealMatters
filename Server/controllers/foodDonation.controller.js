@@ -61,4 +61,10 @@ const foodDonate = asyncHandler(async (req, res) => {
       new ApiResponse(200, foodDonateDetail, "Donation Details Registered Succesfully!!", "true")
     );
 });
-export {foodDonate};
+
+const getNearByFood =asyncHandler(async(req,res)=>{
+  const {userLocation}=req.body;
+  let foodDonationData=await FoodDonation.find({isActive:true});
+  console.log(foodDonationData)
+})
+export {foodDonate,getNearByFood};

@@ -37,6 +37,10 @@ const foodDonationSchema = new mongoose.Schema(
       enum: ["Pending", "Accepted", "Rejected", "Completed"],
       default: "Pending",
     },
+    isActive: {
+        type: Boolean,
+        default: true
+      }
   },
   { timestamps: true }
 );
