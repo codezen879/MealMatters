@@ -5,7 +5,7 @@ import { Location } from "../models/location.model.js";
 
 const foodDonate = asyncHandler(async (req, res) => {
   const { donorID, foodType, foodDetails, quantity, expirationDate, location } = req.body;
-  const { latitude, longitude, addressDetails } = location;
+  const { latitude, longitude, address } = location;
 
   // if (
   //   [
@@ -26,7 +26,7 @@ const foodDonate = asyncHandler(async (req, res) => {
   const locations = await Location.create({
     latitude,
     longitude,
-    addressDetails,
+    address,
   });
 
   const location_id = locations._id.toString();
@@ -37,7 +37,7 @@ const foodDonate = asyncHandler(async (req, res) => {
     foodDetails,
     quantity,
     expirationDate,
-    location: location_id,
+    location:location_id,
   });
 
   if (!foodDonateDetail) {

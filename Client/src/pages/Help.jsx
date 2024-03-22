@@ -97,7 +97,7 @@ const Help = () => {
        <br/>
        {toggle&&(<>
         <div className="min-h-screen">
-     <main className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 shadow-md shadow-black pb-4 bg-gray-100">
+     <main className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 shadow-sm shadow-black pb-4 bg-gray-100">
          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:gap-8 gap-2">
           {data?.map((dat, index) => (
             <div key={index} className="p-4 bg-white rounded-lg shadow-md mt-8 transform transition-transform duration-300 hover:scale-110">

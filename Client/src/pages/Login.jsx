@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from "react-hot-toast"
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ const LoginPage = () => {
     email: '',
     password: ''
   });
-
+ 
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

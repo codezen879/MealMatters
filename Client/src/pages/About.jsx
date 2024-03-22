@@ -17,37 +17,37 @@ const data = [
         initial: "Shlok Prajapati - Director at",
         companyName: "[Penguin Solutions]",
         description:
-            "Working with Innovatech Solutions helps me enhance my skills",
+            "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 2,
         src: Web,
         description:
-            "Innovatech Solutions offers a dynamic environment, fostering continuous skill development",
+            "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 3,
         src: App,
         description:
-            "Engaging in diverse projects challenges and expands my professional expertise.",
+            "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 4,
         src: Net,
         description:
-            "The supportive team and innovative approaches create an ideal learning atmosphere.",
+            "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 5,
         src: Cloud,
         description:
-            "Working on projects enhances not only my technical skills but also problem-solving abilities.",
+            "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 6,
         src: Graphic,
         description:
-            "Being part of Innovatech Solutions is a journey of continual growth and career progression",
+            "Your Support Will Bring A Smile On Their Face ",
     },
 ];
 
