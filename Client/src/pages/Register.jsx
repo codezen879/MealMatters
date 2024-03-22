@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from "axios";
-import registerURL from '../utils/url';
+// import registerURL from '../utils/url';
 
 
 const RegistrationPage = () => {
@@ -34,7 +34,7 @@ const RegistrationPage = () => {
       return;
     }
     
-    const response = await axios.post(registerURL, formData);
+    const response = await axios.post(`http://localhost:8000/api/v1/users/register`, formData);
     console.log(response);
 
     // if the use login successfull, get the token from above api

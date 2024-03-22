@@ -3,28 +3,28 @@ import pageImg from "../Images/Careers/career.png"
 
 const careersData = [
   {
-    title: "Web Development",
-    description: "We are looking for a talented software engineer to join our growing team.",
+    title: "Mahavir nagar",
+    description: "50person",
     applyLink: "https://forms.gle/pimZ8CCMG66YzeZN8",
   },
   {
-    title: "App Development",
-    description: "We are looking for a talented software engineer to join our growing team.",
+    title: "Santacruz",
+    description: "40person",
     applyLink: "https://forms.gle/pimZ8CCMG66YzeZN8",
   },
   {
-    title: "CRM System",
-    description: "We are looking for a talented software engineer to join our growing team.",
+    title: "Malad",
+    description: "30person",
     applyLink: "https://forms.gle/pimZ8CCMG66YzeZN8",
   },
   {
-    title: "Cyber Security",
-    description: "We are looking for a talented software engineer to join our growing team.",
+    title: "Mahim",
+    description: "60person",
     applyLink: "https://forms.gle/pimZ8CCMG66YzeZN8",
   },
   {
     title: "",
-    description: "We are looking for a talented software engineer to join our growing team.",
+    description: "",
     applyLink: "https://forms.gle/pimZ8CCMG66YzeZN8",
   },
   {
@@ -43,9 +43,7 @@ export default function Careers() {
     
   return (
     <>
-    <div className="max-h-[400px] ">
-        <img className="w-full h-[400px] object-cover" src={pageImg} alt="" />
-    </div>
+    
     <div className="min-h-screen bg-gray-100 ">
       <main className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:gap-8 gap-2">
