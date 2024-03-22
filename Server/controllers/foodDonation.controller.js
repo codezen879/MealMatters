@@ -2,6 +2,7 @@ import { FoodDonation } from "../models/foodDonation.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Location } from "../models/location.model.js";
+
 const foodDonate = asyncHandler(async (req, res) => {
   const {
     donorID,
@@ -75,20 +76,21 @@ const foodDonate = asyncHandler(async (req, res) => {
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371; // Radius of the earth in km
-  const dLat = deg2rad(lat2 - lat1);  // deg2rad below
-  const dLon = deg2rad(lon2 - lon1); 
-  const a = 
+  const dLat = deg2rad(lat2 - lat1); // deg2rad below
+  const dLon = deg2rad(lon2 - lon1);
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon / 2) * Math.sin(dLon / 2)
-    ; 
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = earthRadius * c; // Distance in km
   return distance;
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI/180)
+  return deg * (Math.PI / 180);
 }
 
 const getNearByFood = asyncHandler(async (req, res) => {
@@ -102,16 +104,16 @@ const getNearByFood = asyncHandler(async (req, res) => {
 
   // Map each data element to a Promise
   const promises = foodDonationData.map(async (data) => {
-      let k = data;
-      let location = await Location.findById(data.location);
-      let lon2 = location.longitude;
-      let lat2 = location.latitude;
-      lat2 = parseFloat(lat2);
-      lon2 = parseFloat(lon2);
-      let d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
-      if (d <= distance) {
-          return k;
-      }
+    let k = data;
+    let location = await Location.findById(data.location);
+    let lon2 = location.longitude;
+    let lat2 = location.latitude;
+    lat2 = parseFloat(lat2);
+    lon2 = parseFloat(lon2);
+    let d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
+    if (d <= distance) {
+      return k;
+    }
   });
 
   // Wait for all promises to resolve
@@ -119,14 +121,110 @@ const getNearByFood = asyncHandler(async (req, res) => {
 
   // Filter out undefined values and populate available array
   result.forEach((item) => {
-      if (item) {
-          available.push(item);
-      }
+    if (item) {
+      available.push(item);
+    }
   });
 
   console.log(available);
 
-  return res.status(201).json(new ApiResponse(200, available, "These Are The Available Donations!!", "true"));
+  return res
+    .status(201)
+    .json(
+      new ApiResponse(
+        200,
+        available,
+        "These Are The Available Donations!!",
+        "true"
+      )
+    );
 });
 
-export {foodDonate,getNearByFood};
+const addToWaitingList = asyncHandler(async (req, res) => {
+  const { donationId } = req.params;
+  const foodDonation = await FoodDonation.findById(donationId);
+
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "Food Donation Not Found", "false"));
+  }
+
+  const addtoQue = await FoodDonation.findByIdAndUpdate(
+    donationId,
+    {
+      $push: { waitingList: req.user._id },
+    },
+    { new: true }
+  );
+
+  if (!addtoQue) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "Not Added in Que!!", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "Added in Que", "true"));
+});
+
+const assignDonationToUser = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.findById(req.params.donationId);
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "Food Donation Not Found", "false"));
+  }
+
+  const userId = req.params.userId;
+
+  if (!userId) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "User Id Not Found", "false"));
+  }
+
+  const assign = await FoodDonation.findByIdAndUpdate(
+    req.params.donationId,
+    {
+      $set: { assignedTo: userId },
+    },
+    { new: true }
+  );
+
+  if (!assign) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "Not Assigned", "false"));
+  }
+
+  foodDonation.isActive = false; // Set isActive to false
+  foodDonation.status = "Accepted"; // Set status to "Accepted"
+  foodDonation.waitingList = [];
+  await foodDonation.save({ validateBeforeSave: false });
+
+  return res.status(201).json(new ApiResponse(200, assign, "Assigned", "true"));
+});
+
+const getAllDonations = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.find();
+
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "No FOOd Donation", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
+});
+
+export {
+  foodDonate,
+  getNearByFood,
+  addToWaitingList,
+  assignDonationToUser,
+  getAllDonations,
+};
