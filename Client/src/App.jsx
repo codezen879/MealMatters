@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 // import ViewDonation from "./pages/ViewDonations.jsx";
 import {Toaster} from "react-hot-toast"
 // import Verification from './pages/Verificationc'
-import Careers from "./pages/Careers";
+import Help from "./pages/Help";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
                 {/* <Route path="/about" element={<About />} /> */}
                 {/* <Route path="/services" element={<Services />} /> */}
                 {/* <Route path="/contact" element={<Contact />} /> */}
-                <Route path="/careers" element={<Careers />} />
+                <Route path="/help" element={<Help />} />
                 {/* <Route path="/verification" element={<Verification />} /> */}
                 {/* <Route path="/support" element={<Support />} /> */}
                 <Route path="/register" element={<RegistrationPage />} />
