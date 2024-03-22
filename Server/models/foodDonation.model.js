@@ -32,11 +32,8 @@ const foodDonationSchema = new mongoose.Schema(
       enum: ["Pending", "Accepted", "Rejected", "Completed"],
       default: "Pending",
     },
-    
   },
   { timestamps: true }
 );
 
-const FoodDonation = mongoose.model("FoodDonation", foodDonationSchema);
-
-module.exports = FoodDonation;
+export const FoodDonation = mongoose.model("FoodDonation", foodDonationSchema);
