@@ -13,7 +13,9 @@ const foodDonate = asyncHandler(async (req, res) => {
     status,
     location,
   } = req.body;
-  const { latitude, longitude, address, city, state, country ,postal_code} = location;
+  const { latitude, longitude, address, city, state, country, postal_code } =
+    location;
+
   // if (
   //   [
   //     donorID,
@@ -29,6 +31,7 @@ const foodDonate = asyncHandler(async (req, res) => {
   //     .status(201)
   //     .json(new ApiResponse(400, {}, "All fields are required", "false"));
   // }
+
   const locations = await Location.create({
     latitude,
     longitude,
@@ -36,9 +39,11 @@ const foodDonate = asyncHandler(async (req, res) => {
     city,
     state,
     country,
-    postal_code
+    postal_code,
   });
+
   const location_id = locations._id.toString();
+
   const foodDonateDetail = await FoodDonation.create({
     donorID,
     foodType,
@@ -47,8 +52,9 @@ const foodDonate = asyncHandler(async (req, res) => {
     pickupAvailable,
     deliveryAvailable,
     status,
-    location:location_id,
+    location: location_id,
   });
+
   if (!foodDonateDetail) {
     return res
       .status(201)
@@ -58,7 +64,13 @@ const foodDonate = asyncHandler(async (req, res) => {
   return res
     .status(201)
     .json(
-      new ApiResponse(200, foodDonateDetail, "Donation Details Registered Succesfully!!", "true")
+      new ApiResponse(
+        200,
+        foodDonateDetail,
+        "Donation Details Registered Succesfully!!",
+        "true"
+      )
     );
 });
-export {foodDonate};
+
+export { foodDonate };

@@ -1,10 +1,15 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    reviewedDonationID: {
+    donorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    reviewedDonationID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FoodDonation",
       required: true,
     },
     reviewerUserID: {
