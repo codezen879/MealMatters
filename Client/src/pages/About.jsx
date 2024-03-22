@@ -3,12 +3,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Keyboard } from "swiper/modules";
 import "swiper/css";
 import Web from "../Images/web.jpg";
-import Shlok from "../Images/Testimonials/shlok.jpeg";
+import Shlok from "../Images/About/images.jpeg";
 import App from "../Images/app.webp";
 import Net from "../Images/net.jpg";
 import Cloud from "../Images/cloud.jpg";
 import Graphic from "../Images/graphic.jpg";
-import aboutimg from "../Images/About/aboutpage.jpg";
+import aboutimg from "../Images/About/about.jpg";
 
 const data = [
     {
@@ -73,18 +73,14 @@ const About = () => {
             />
             <div className="md:w-1/2 h-full md:pt-14 mx-4 my-12">
                 <h1 className="font-sans font-bold text-3xl md:text-5xl leading-[1.2] text-black">
-                    Power your technology, grow your business
+                    Power your life by making A Donation
                 </h1>
                 <div className="mt-4 w-6 h-1 bg-[#0283F3]"></div>
                 <div className="py-3 font-extrabold text-xl md:text-2xl">
                     Who are we
                 </div>
                 <div className="w-full md:w-[60%]">
-                    Innovatech Solutions is an IT services, consulting and
-                    business solutions organization that has been partnering
-                    with many of the projects throughout the globe. We
-                    believe innovation and collective knowledge can
-                    transform all our futures with greater purpose.
+                Donating is a great way to improve the conditions of the unprivileged citizen. Your small help will counter poverty, hunger and will bring happiness and a feeling of satiety among the unprivileged.
                 </div>
             </div>
         </div>

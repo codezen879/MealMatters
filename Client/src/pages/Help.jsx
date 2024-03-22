@@ -65,42 +65,45 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 const Help = () => {
     const [data, setData] = useState([]);
-    const [distance, setDistance] = useState([]);
+    const [distance, setDistance] = useState("");
     const [toggle,SetToggle]=useState(false)
     const getTasks = async () => {
       try {
         SetToggle(true);
-        const response1 = await axios.post(`http://localhost:8000/api/v1/food/nearBy`,{lat1:"19.4659","lon1":"72.8022",distance:900000});
-        const response2 = await axios.get(`http://localhost:8000/api/v1/food/getAllDonations`).then((res) => res.data.data)
+        const response = await axios.post(`http://localhost:8000/api/v1/food/nearBy`,{lat1:"19.237188","lon1":"72.844139",distance});
 
-        console.log(response2);
-
-        setData(response2);
-        console.log('Data', response2)
+        setData(response.data.data);
       } catch (error) {
         console.log(error.message);
       }
     };
+
+    const handleChange = (e) => {
+      setDistance(e.target.value);
+    }
   
-    
+    useEffect(()=>{
+      getTasks()
+    }, [distance])
 
   return (
-    <div>
-        <div className='border-black border-2 w-[400px] mx-5 rounded-lg'>        
+    <div className='flex flex-col justify-center items-center w-full'>
+        <div className='border-black border-2 w-[350px] mx-5 rounded-lg bg-gray-200'>        
             <input
-            className=' px-5 mx-5 my-5 border-black border-2 rounded-md'
-            placeholder='Enter The Distance' onChange={(e)=>setDistance(e.target.value)}/>
-            <button onClick={getTasks} className='border-black border-2 px-5 my-5 rounded-md'>submit</button>
+            className=' px-5 mx-5 my-5 border-black  rounded-md'
+            placeholder='Enter The Distance' onChange={(e)=>handleChange(e)}/>
+            <button onClick={getTasks} className='border-black  items-center my-5 rounded-md'>submit</button>
         </div>
        <br/>
        {toggle&&(<>
-        <div className="min-h-screen bg-gray-100 ">
-     <main className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24">
+        <div className="min-h-screen">
+     <main className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 shadow-md shadow-black pb-4 bg-gray-100">
          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:gap-8 gap-2">
           {data?.map((dat, index) => (
             <div key={index} className="p-4 bg-white rounded-lg shadow-md mt-8 transform transition-transform duration-300 hover:scale-110">
-              <h2 className="text-xl font-semibold mb-4">{dat.foodType}</h2>
-              <p className="text-gray-700 mb-4">{dat.quantity}</p>
+              <h2 className="text-xl font-semibold mb-4">{dat.foodDetails}</h2>
+              <p className="text-gray-700 mb-4">Expire in : {dat.expirationDate} hours</p>
+              <p className="text-gray-700 mb-4">Food quantity : {dat.quantity} kg</p>
               <button className="text-blue-500 hover:underline" onClick={() => click(dat.applyLink)}>Request</button>
             </div>
           ))}

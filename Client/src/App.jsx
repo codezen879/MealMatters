@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Support from "./components/Support";
 import RegistrationPage from "./pages/Register";
 import Login from "./pages/Login";
+import Contact from "./pages/Contact";
 // import ViewDonation from "./pages/ViewDonations.jsx";
 import {Toaster} from "react-hot-toast"
 // import Verification from './pages/Verificationc'
@@ -28,9 +29,9 @@ export default function App() {
 
             <Routes>
                 <Route path="/home" element={<Home />} />
-                {/* <Route path="/about" element={<About />} /> */}
+                <Route path="/about" element={<About />} />
                 {/* <Route path="/services" element={<Services />} /> */}
-                {/* <Route path="/contact" element={<Contact />} /> */}
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/help" element={<Help />} />
                 {/* <Route path="/verification" element={<Verification />} /> */}
                 {/* <Route path="/support" element={<Support />} /> */}
