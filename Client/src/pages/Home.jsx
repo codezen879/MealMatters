@@ -11,9 +11,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "@/components/ui/dialog"
+} from "@/components/ui/dialog"
   
-
 const Home = () => {    
     return (
         <div name="home" className="w-full bg-gradient-to-b">
