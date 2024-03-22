@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Support from "./components/Support";
 import RegistrationPage from "./pages/Register";
 import Login from "./pages/Login";
+// import ViewDonation from "./pages/ViewDonations.jsx";
 import {Toaster} from "react-hot-toast"
 // import Verification from './pages/Verificationc'
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -17,6 +18,8 @@ export default function App() {
         <div className="overflow-x-hidden ">
             {/* <Toaster position="top-center" reverseOrder={false} /> */}
             <Navbar />
+            
+
 
             {/* <RegistrationPage /> */}
             {/* <Login/> */}
@@ -34,7 +37,7 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="*" element={<Navigate to="/home" replace />} />
             </Routes>
-
+            
             <Support />
             <Footer />
         </div>

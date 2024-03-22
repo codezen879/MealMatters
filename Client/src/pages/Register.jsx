@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import axios from "axios";
+import registerURL from '../utils/url';
+
 
 const RegistrationPage = () => {
   // const navigate = useNavigate();
@@ -10,7 +13,7 @@ const RegistrationPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    fullname: '',
+    fullName: '',
     password: '',
     confirmPassword: '',
     phoneno: ''
@@ -21,17 +24,18 @@ const RegistrationPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you can add your registration logic
     // toast.success("Registration Successfull");
-    const {username, email, fullname, password, confirmPassword, phoneno} = formData;
+    const {username, email, fullName, password, confirmPassword, phoneno} = formData;
     if(password !== confirmPassword){
       toast.error("Password and confirm password should be same");
       return;
     }
     
-    
+    const response = await axios.post(registerURL, formData);
+    console.log(response);
 
     // if the use login successfull, get the token from above api
     // localStorage.setItem('token', token);
@@ -97,18 +101,18 @@ const RegistrationPage = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="fullname" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
                 Full name
               </label>
               <div className="mt-1">
                 <input
-                  id="fullname"
-                  name="fullname"
+                  id="fullName"
+                  name="fullName"
                   type="text"
-                  autoComplete="fullname"
+                  autoComplete="fullName"
                   required
                   className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  value={formData.fullname}
+                  value={formData.fullName}
                   onChange={handleChange}
                 />
               </div>
