@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import toast from "react-hot-toast"
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+// import loginURL from '@/utils/url';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -6,14 +10,24 @@ const LoginPage = () => {
     password: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const navigate=useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you can add your login logic
+    const reponse = await axios.post("http://localhost:8000/api/v1/users/login", formData);
+    if(reponse.data.statusCode === 200) {
+      toast.success("Login Successfull");
+      navigate("/home");
+    }
+    else {
+      toast.error(reponse.data.message);
+    }
+    console.log(reponse.data);
     console.log(formData);
   };
 
