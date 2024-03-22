@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HeroImage from "../Images/HeroImage2.jpg";
-import MyModal from "./DividerModal"; // Make sure to import the Modal component
+// import MyModal from "./DividerModal"; // Make sure to import the Modal component
 
 const Home = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -37,7 +37,7 @@ const Home = () => {
                     </button>
                 </div>
             </div>
-            <MyModal />
+            {/* <MyModal /> */}
         </div>
     );
 };
