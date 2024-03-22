@@ -84,33 +84,31 @@ const getNearByFood = asyncHandler(async (req, res) => {
   lon1 = parseFloat(lon1);
   let foodDonationData = await FoodDonation.find({ isActive: true });
 
-  const available = [];
+  // const available = [];
 
   // Map each data element to a Promise
   const promises = foodDonationData.map(async (data) => {
-    let k = data;
-    let location = await Location.findById(data.location);
-    let lon2 = location.longitude;
-    let lat2 = location.latitude;
+    let k = data; // Create a copy of 'data' to avoid modifying the original object
+    let area = await Location.findById(data.location);
+    let lon2 = area.longitude;
+    let lat2 = area.latitude;
     lat2 = parseFloat(lat2);
     lon2 = parseFloat(lon2);
     let d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
     if (d <= distance) {
+      k.location = area; // Assign the 'area' object to the 'area' key in the 'k' object
       return k;
     }
-  });
+});
 
-  // Wait for all promises to resolve
-  const result = await Promise.all(promises);
+// Wait for all promises to resolve
+const result = await Promise.all(promises);
 
-  // Filter out undefined values and populate available array
-  result.forEach((item) => {
-    if (item) {
-      available.push(item);
-    }
-  });
+// Filter out undefined values and populate available array
+const available = result.filter(item => item !== undefined);
 
-  console.log(available);
+console.log(available);
+
 
   return res
     .status(201)

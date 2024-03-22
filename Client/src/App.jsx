@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Support from "./components/Support";
 import RegistrationPage from "./pages/Register";
 import Login from "./pages/Login";
+import DonerDashBoard from "./components/dashBoard/donerDashBoard/DonerDashBoard";
 // import ViewDonation from "./pages/ViewDonations.jsx";
 import {Toaster} from "react-hot-toast"
 // import Verification from './pages/Verificationc'
@@ -36,6 +37,7 @@ export default function App() {
                 {/* <Route path="/support" element={<Support />} /> */}
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/donerdashboard" element={<DonerDashBoard />} />
                 <Route path="*" element={<Navigate to="/home" replace />} />
             </Routes>
             
