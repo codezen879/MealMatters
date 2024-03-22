@@ -15,7 +15,8 @@ import {Toaster} from "react-hot-toast"
 import Help from "./pages/Help";
 import Protected from "./Protected";
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import LogProtected from "./LogProtected";
+import LoginPage from "./pages/Login";
 export default function App() {
     return (
         <div className="overflow-x-hidden ">
@@ -37,7 +38,7 @@ export default function App() {
                 {/* <Route path="/verification" element={<Verification />} /> */}
                 {/* <Route path="/support" element={<Support />} /> */}
                 <Route path="/register" element={<RegistrationPage />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<LogProtected Component={LoginPage} />} />
                 {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
                 <Route path="/home" element={<Protected Component={Home} />} />
             </Routes>
