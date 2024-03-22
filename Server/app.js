@@ -17,8 +17,10 @@ app.use(cookieParser());
 
 // routes import
 import userRouter from "./routes/auth/user.routes.js";
-
+import foodAddRouter from "./routes/foodRoute/foodDonation.routes.js"
 // //routes declaration
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/food", foodAddRouter);
+
 
 export { app };

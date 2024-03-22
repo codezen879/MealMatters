@@ -19,6 +19,11 @@ const foodDonationSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    location: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Location",
+        required: true,
+    },
     pickupAvailable: {
       type: Boolean,
       default: true,
