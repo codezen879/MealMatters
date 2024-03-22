@@ -34,7 +34,8 @@ const RegistrationPage = () => {
       return;
     }
     
-    const response = await axios.post(`http://localhost:8000/api/v1/users/register`, formData);
+    const response = await axios.post(registerURL, formData);
+    toast.success("Registration Completed");
     console.log(response);
 
     // if the use login successfull, get the token from above api
