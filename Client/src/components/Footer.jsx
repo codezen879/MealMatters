@@ -1,7 +1,7 @@
 //import instagram from "../Images/Footer/instagram.svg";
 export default function Footer() {
     return (
-        <div className="flex flex-col md:flex-col justify-between items-center gap-2 bg-[#111827] px-8 md:px-40 py-4">
+        <div className=" flex flex-col md:flex-col justify-between items-center gap-2 bg-[#111827] px-8 md:px-40 py-4">
             <h1 className="text-xs text-white">
                 © 2024 Mealmatters, OCP
             </h1>
