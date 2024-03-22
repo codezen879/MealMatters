@@ -40,7 +40,7 @@ export default function App() {
                 {/* <Route path="/support" element={<Support />} /> */}
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="*" element={<Navigate to="/home" replace />} />
+                <Route path="*" element={<Protected Component={Home} />} />
             </Routes>
             
 
