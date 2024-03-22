@@ -71,8 +71,9 @@ export default function Navbar() {
                         </button>
                     </div>
 
-                    <button
-                        className="inline-flex md:hidden items-center justify-center py-5 -translate-y-1 rounded-lg [&>]:aspect-square [&>]:h-7"
+                   {/* Nav Hamburger button */}
+                   <button
+                        className="inline-flex md:hidden items-center justify-center p-2 -translate-y-1 rounded-lg [&>*]:aspect-square [&>*]:h-7"
                         onClick={handleClick}>
                         {toggle ? (
                             <img src={close} alt="close" />
@@ -82,6 +83,21 @@ export default function Navbar() {
                     </button>
                 </div>
             </nav>
+            {/* Responsive Menu */}
+            {toggle && (
+                <div className="md:hidden flex flex-col items-center space-y-4 py-4 px-8 bg-white">
+                    {link.map((item, index) => (
+                        <NavLink
+                            key={index}
+                            to={item.link}
+                            className="text-black cursor-pointer text-base tracking-wide hover:text-[#0283F3]"
+                            onClick={handleClick}
+                        >
+                            {item.title}
+                        </NavLink>
+                    ))}
+                </div>
+            )}
 
             <DonationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>

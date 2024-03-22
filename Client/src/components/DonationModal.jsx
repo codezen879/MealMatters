@@ -12,7 +12,7 @@ function DonationModal({ isOpen, onClose }) {
         photos: [], // For file upload
     });
 
-    const [addressDetails, setAddressDetails] = useState("");
+    const [address, setAddress] = useState("");
     const [latitude, setLatitude ] = useState("");
     const [longitude, setLongitude ] = useState("");
 
@@ -31,11 +31,11 @@ function DonationModal({ isOpen, onClose }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
-                    setAddressDetails("Could not fetch address details.");
+                    setAddress("Could not fetch address details.");
                 } else {
                     const { town, postcode, country } = data.address;
                     const addressString = `${town}, ${postcode}, ${country}`;
-                    setAddressDetails(addressString);
+                    setAddress(addressString);
                     setFormData(prevState => ({
                         ...prevState,
                         donorAddress: addressString
@@ -43,7 +43,7 @@ function DonationModal({ isOpen, onClose }) {
                 }
             })
             .catch((error) => {
-                setAddressDetails("Error fetching address details.");
+                setAddress("Error fetching address details.");
                 console.error("Error fetching address details:", error);
             });
     };
@@ -66,7 +66,7 @@ function DonationModal({ isOpen, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Form submission logic here
-        let location={latitude, longitude, addressDetails}
+        let location={latitude, longitude, address}
         let postal_code="1212"
         let donorID=localStorage.getItem('donorID');
         formData={...formData,location,donorID,postal_code}

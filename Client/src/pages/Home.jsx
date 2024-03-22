@@ -21,13 +21,13 @@ const Home = () => {
             <div name="home" className="w-full bg-gradient-to-b">
                 <div className="relative">
                     <img
-                        className="w-full h-[900px] md:h-[500px]"
+                        className="w-full h-[900px] md:h-[600px]"
                         src={HeroImage}
                         alt=""
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
                         <Button
-                            className="text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 mt-80 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"
+                            className="text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-9 py-7 mt-96 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"
                             onClick={() => setIsDialogOpen(true)}>
                             Get Started
                         </Button>
