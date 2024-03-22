@@ -20,9 +20,9 @@ const foodDonationSchema = new mongoose.Schema(
       required: true,
     },
     location: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Location",
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+      required: true,
     },
     pickupAvailable: {
       type: Boolean,
@@ -32,15 +32,25 @@ const foodDonationSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    waitingList: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     status: {
       type: String,
       enum: ["Pending", "Accepted", "Rejected", "Completed"],
       default: "Pending",
     },
     isActive: {
-        type: Boolean,
-        default: true
-      }
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

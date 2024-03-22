@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from "axios";
-import registerURL from '../utils/url';
+// import registerURL from '../utils/url';
 
 
 const RegistrationPage = () => {
@@ -35,6 +35,7 @@ const RegistrationPage = () => {
     }
     
     const response = await axios.post(registerURL, formData);
+    toast.success("Registration Completed");
     console.log(response);
 
     // if the use login successfull, get the token from above api
