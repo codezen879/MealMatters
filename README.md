@@ -1,2 +1,3 @@
-# MealMatters
-An app Helping hunger crisis
+# Meal-Matters
+From Excess to Empathy
+
