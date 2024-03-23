@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import './activeDonation.css'
+
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-const Activedonation = () => {
+const Missed = () => {
   let [data, setData] = useState([]);
     const getTasks = async () => {
       try {
         
-        const response = await axios.get(`http://localhost:8000/api/v1/food/getAllDonations/active`);
+        const response = await axios.get(`http://localhost:8000/api/v1/food/getAllDonations/missed`);
         console.log(response)
         setData(response.data.data);
         console.log(response.data.data)
@@ -22,14 +22,11 @@ const Activedonation = () => {
         <div className="Econtainer">
           <div className="tabs">
             <Link to='/activedonation'>
-            <button style={{ backgroundColor: 'rgb(209, 213, 219)', color: 'black' }}>Active</button>
-
-
-</Link>
+            <button >Active </button></Link>
             <Link to='/accepted'>
             <button>Accepted </button></Link>
             <Link to='/misseddonation'>
-            <button>Missed </button></Link>
+            <button style={{ backgroundColor: 'rgb(209, 213, 219)', color: 'black' }}>Missed</button></Link>
             <Link to='/historydonation'>
             <button>Review </button></Link>
           </div>
@@ -68,4 +65,4 @@ const Activedonation = () => {
   )
 }
 
-export default Activedonation
+export default Missed

@@ -20,15 +20,15 @@ const DonerDashBoard = () => {
   }, [])
   return (
         <div className="Econtainer">
-          <div className="tabs ">
-            <Link  to='/activedonation'>
-            <button  className='bg-[#150664]'>Active </button></Link>
-            <Link to='/missedDonation'>
-            <button  className='bg-[#150664]'>Delievered </button></Link>
+          <div className="tabs">
+            <Link to='/activedonation'>
+            <button >Active </button></Link>
+            <Link to='/accepted'>
+            <button>Accepted </button></Link>
             <Link to='/misseddonation'>
             <button  className='bg-[#150664]'>Missed </button></Link>
             <Link to='/historydonation'>
-            <button  className='bg-[#150664]'>History </button></Link>
+            <button>Review </button></Link>
           </div>
           <div className="tableContainer">
           <table className='border-black'>
