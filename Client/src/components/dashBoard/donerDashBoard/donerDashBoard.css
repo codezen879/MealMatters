@@ -15,9 +15,10 @@
     border-radius: 10px;
     overflow: hidden;
     border:solid rgb(152, 149, 149) 1px;
+    
   }
   
-  th, td {
+  th, td, tr {
     font-size:1vw;
     padding: 10px;
     text-align: center;
@@ -26,14 +27,15 @@
   }
   
   th {
+    width: auto;
     font-size:1vw;
-    background-color:rgb(50,49,56);
+    background-color:rgb(21, 6, 100);
     color: white;
     font-weight: 800;
   }
   
   tr:nth-child(even) {
-    background-color:rgb(141,146,175);
+    background-color:rgb(209,213,219);
   }
   
   tr:nth-child(odd) {
@@ -67,3 +69,34 @@
   .imgic img:hover {
     transform: translateY(-2px); /* Move image up by 5 pixels */
   }
+  .tableContainer{
+    display: flex;
+    justify-content: center;
+    margin-left: 1.9vw;
+    width: 91.2vw;
+    height: 60vh;
+    margin-top: 5vh;
+  
+  }
+  .tabs{
+    display: flex;
+    align-items: center;
+    gap: 7vw;
+    width: 100vw;
+    border-radius: 3px;
+   
+  }
+  .tabs button {
+    padding: 3vw;
+    background: #777474;
+    border-radius: 10px;
+    color: aliceblue;
+    margin-left: 2vw;
+    font-weight: 900;
+    width: 16vw;
+    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.tabs button:hover {
+    background-color: #555; /* Change background color on hover */
+}

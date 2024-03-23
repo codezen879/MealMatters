@@ -191,7 +191,7 @@ const assignDonationToUser = asyncHandler(async (req, res) => {
 
 const getAllDonations = asyncHandler(async (req, res) => {
   const foodDonation = await FoodDonation.find();
-
+console.log("hiiii")
   if (!foodDonation) {
     return res
       .status(201)

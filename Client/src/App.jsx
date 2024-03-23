@@ -18,6 +18,7 @@ import Protected from "./Protected";
 import { Routes, Route, Navigate } from "react-router-dom";
 import LogProtected from "./LogProtected";
 import LoginPage from "./pages/Login";
+import Activedonation from "./components/dashBoard/active/Activedonation";
 export default function App() {
     return (
         <div className="overflow-x-hidden ">
@@ -33,6 +34,7 @@ export default function App() {
             <Routes>
                 {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="/about" element={<Protected Component={About} />} />
+                <Route path="/dash" element={<Protected Component={DonerDashBoard} />} />
                 {/* <Route path="/services" element={<Services />} /> */}
                 <Route path="/contact" element={<Protected Component={Contact} />} />
                 <Route path="/help" element={<Protected Component={Help} />}/>
@@ -41,6 +43,7 @@ export default function App() {
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="*" element={<Protected Component={Home} />} />
+                <Route path="/activedonation" element={<Protected Component={Activedonation} />} />
             </Routes>
             
 

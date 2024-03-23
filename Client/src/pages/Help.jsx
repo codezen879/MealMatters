@@ -87,12 +87,12 @@ const Help = () => {
     }, [distance])
 
   return (
-    <div className='flex flex-col justify-center items-center w-full'>
+    <div className='flex flex-col justify-center items-center w-full '>
         <div className='border-black border-2 w-[350px] mx-5 rounded-lg bg-gray-200'>        
             <input
-            className=' px-5 mx-5 my-5 border-black border-2 rounded-md'
+            className=' px-5 mx-5 my-5 ml-16 border-black border-2 rounded-md'
             placeholder='Enter The Distance' onChange={(e)=>handleChange(e)}/>
-            <button onClick={()=>SetToggle(true)} className='border-black border-2 px-5 my-5 rounded-md'>submit</button>
+            <button onClick={()=>SetToggle(true)} className='border-black border-2 px-5 my-5 ml-28 rounded-md'>submit</button>
         </div>
        <br/>
        {toggle&&(<>
