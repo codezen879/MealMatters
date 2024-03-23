@@ -3,13 +3,14 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Sociallinks from "./components/Sociallinks";
 import About from "./pages/About";
-import Services from "./pages/Ngo";
+import Ngo from "./pages/Ngo";
 import Footer from "./components/Footer";
-import Support from "./components/Support";
+// import Support from "./components/Support";
 import RegistrationPage from "./pages/Register";
 import Login from "./pages/Login";
 import DonerDashBoard from "./components/dashBoard/donerDashBoard/DonerDashBoard";
 import Contact from "./pages/Contact";
+
 // import ViewDonation from "./pages/ViewDonations.jsx";
 import {Toaster} from "react-hot-toast"
 // import Verification from './pages/Verificationc'
@@ -35,7 +36,7 @@ export default function App() {
                 {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="/about" element={<Protected Component={About} />} />
                 <Route path="/dash" element={<Protected Component={DonerDashBoard} />} />
-                {/* <Route path="/services" element={<Services />} /> */}
+                <Route path="/ngo" element={<Ngo />} />
                 <Route path="/contact" element={<Protected Component={Contact} />} />
                 <Route path="/help" element={<Protected Component={Help} />}/>
                 {/* <Route path="/verification" element={<Verification />} /> */}
@@ -47,7 +48,7 @@ export default function App() {
             </Routes>
             
 
-            <Support />
+            {/* <Support /> */}
             <Footer />
         </div>
     );

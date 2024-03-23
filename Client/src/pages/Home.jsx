@@ -21,7 +21,7 @@ const Home = () => {
             <div name="home" className="w-full bg-gradient-to-b">
                 <div className="relative">
                     <img
-                        className="w-full h-[900px] md:h-[600px]"
+                        className="w-full h-[900px] md:h-[650px]"
                         src={HeroImage}
                         alt=""
                     />
