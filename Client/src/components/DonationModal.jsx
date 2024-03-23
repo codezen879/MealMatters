@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast"
 function DonationModal({ isOpen, onClose }) {
     let [formData, setFormData] = useState({
         donorName: "",
@@ -247,6 +248,7 @@ function DonationModal({ isOpen, onClose }) {
                     </div>
                     <div className="mb-4">
                         <button
+                            onClick={() => toast.success("Thanks for your Kindness!")}
                             type="submit"
                             className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                             Donate Now

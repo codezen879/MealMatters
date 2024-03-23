@@ -21,7 +21,7 @@ const Home = () => {
             <div name="home" className="w-full bg-gradient-to-b">
                 <div className="relative">
                     <img
-                        className="w-full h-[900px] md:h-[600px]"
+                        className="w-full h-[900px] md:h-[650px]"
                         src={HeroImage}
                         alt=""
                     />
@@ -46,6 +46,12 @@ const Home = () => {
                             From Access to Empathy
                         </h2>
                         <div className="flex justify-center gap-3">
+                            <Link to='/dash'>  <button
+                                className="w-[150px] h-[100px] bg-green-500 text-white text-[24px] text-lg font-bold rounded-lg"
+                                onClick={handleDonateNow}>
+                                Our Donation
+                            </button></Link>
+                      
                             <button
                                 className="w-[150px] h-[100px] bg-green-500 text-white text-[24px] text-lg font-bold rounded-lg"
                                 onClick={handleDonateNow}>

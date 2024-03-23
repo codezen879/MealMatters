@@ -74,6 +74,7 @@ const RegistrationPage = () => {
                 </h2>
             </div>
 
+<<<<<<< HEAD
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 ">
                 <div className="bg-white py-8 px-4  sm:rounded-lg sm:px-10 rounded-md shadow-lg">
                     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -210,6 +211,26 @@ const RegistrationPage = () => {
                         </div>
                     </form>
                 </div>
+=======
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+               
+              >
+                Register
+              </button>
+              <div className='flex gap-4 justify-center mt-2'>
+                <p>Already registered ?</p>
+                <Link
+                  to="/login"
+                  type="button"
+                  className="border-black font-semibold"
+                >
+                  Login
+                </Link>
+              </div>
+>>>>>>> 99d0dc42dce158c7cc33a657323422b132173028
             </div>
         </div>
     );

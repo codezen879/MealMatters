@@ -50,6 +50,14 @@ const foodDonationSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    isDelievered: {
+      type: Boolean,
+      default: false,
+    },
+    isRejected: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

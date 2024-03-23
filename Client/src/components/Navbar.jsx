@@ -3,6 +3,7 @@ import Logo from "../Images/Navbar/logo.svg";
 import open from "../Images/Navbar/open.svg";
 import close from "../Images/Navbar/close.svg";
 
+
 import { NavLink } from "react-router-dom";
 import DonationModal from "./DonationModal"; // Import the DonationModal component
 
@@ -23,10 +24,6 @@ export default function Navbar() {
             title: "NGO's",
             link: "/ngo",
         },
-        {
-            title: "Contact",
-            link: "/contact",
-        },
     ];
 
     function handleClick() {
@@ -36,7 +33,7 @@ export default function Navbar() {
     return (
         <>
         <div className="flex flex-col">
-        <nav className="relative z-10 flex flex-col justify-between px-8 lg:px-36 py-5 bg-transparent"> {/* Fix the closing quote */}
+        <nav className="relative z-10 flex flex-col justify-between px-8 lg:px-36 py-3 bg-transparent"> {/* Fix the closing quote */}
 
                 <div className="flex flex-row justify-between items-center z-10">
                     <a className="space-x-1" href="#">
@@ -49,14 +46,14 @@ export default function Navbar() {
                         </span>
                     </a>
 
-                    <div className="hidden md:flex flex-row gap-6">
+                    <div className="hidden md:flex flex-row gap-6 font-bold">
                         {link.map((item, index) => (
                             <NavLink
                                 key={index}
                                 to={item.link}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-[#0283F3] font-semibold cursor-pointer text-base tracking-wide hover:text-[#0283F3]"
+                                        ? "text-black font-semibold cursor-pointer text-base tracking-wide hover:text-[#0283F3]"
                                         : "text-black cursor-pointer text-base tracking-wide hover:text-[#0283F3]"
                                 }>
                                 {item.title}
@@ -65,11 +62,13 @@ export default function Navbar() {
                     </div>
                     <div>
                         <button
-                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                            className=" bg-green-600 hover:bg-green-700 hover:scale-110 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
                             onClick={() => setIsModalOpen(true)}> {/* Update here */}
                             <span>Donate</span>
                         </button>
+                        
                     </div>
+                    
 
                    {/* Nav Hamburger button */}
                    <button

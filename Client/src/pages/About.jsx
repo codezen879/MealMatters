@@ -4,8 +4,8 @@ import { Autoplay, Keyboard } from "swiper/modules";
 import "swiper/css";
 import Web from "../Images/web.jpg";
 import Shlok from "../Images/About/images.jpeg";
-import App from "../Images/app.webp";
-import Net from "../Images/net.jpg";
+import App from "../Images/GARIB1.jpeg";
+import Net from "../Images/GARIB2.jpeg";
 import Cloud from "../Images/cloud.jpg";
 import Graphic from "../Images/graphic.jpg";
 import aboutimg from "../Images/About/about.jpg";
@@ -14,14 +14,12 @@ const data = [
     {
         id: 1,
         src: Shlok,
-        initial: "Shlok Prajapati - Director at",
-        companyName: "[Penguin Solutions]",
         description:
             "Your Support Will Bring A Smile On Their Face ",
     },
     {
         id: 2,
-        src: Web,
+        src: Net,
         description:
             "Your Support Will Bring A Smile On Their Face ",
     },

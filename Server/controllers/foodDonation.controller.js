@@ -86,33 +86,31 @@ const getNearByFood = asyncHandler(async (req, res) => {
   lon1 = parseFloat(lon1);
   let foodDonationData = await FoodDonation.find({ isActive: true });
 
-  const available = [];
+  // const available = [];
 
   // Map each data element to a Promise
   const promises = foodDonationData.map(async (data) => {
-    let k = data;
-    let location = await Location.findById(data.location);
-    let lon2 = location.longitude;
-    let lat2 = location.latitude;
+    let k = data; // Create a copy of 'data' to avoid modifying the original object
+    let area = await Location.findById(data.location);
+    let lon2 = area.longitude;
+    let lat2 = area.latitude;
     lat2 = parseFloat(lat2);
     lon2 = parseFloat(lon2);
     let d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
     if (d <= distance) {
+      k.location = area; // Assign the 'area' object to the 'area' key in the 'k' object
       return k;
     }
-  });
+});
 
-  // Wait for all promises to resolve
-  const result = await Promise.all(promises);
+// Wait for all promises to resolve
+const result = await Promise.all(promises);
 
-  // Filter out undefined values and populate available array
-  result.forEach((item) => {
-    if (item) {
-      available.push(item);
-    }
-  });
+// Filter out undefined values and populate available array
+const available = result.filter(item => item !== undefined);
 
-  console.log(available);
+console.log(available);
+
 
   return res
     .status(201)
@@ -206,9 +204,21 @@ const assignDonationToUser = asyncHandler(async (req, res) => {
   return res.status(201).json(new ApiResponse(200, assign, "Assigned", "true"));
 });
 
+const getAllDonationsActive = asyncHandler(async (req, res) => {
+  const foodDonations = await FoodDonation.find({ isActive: true });
+
+  // Check if any active food donations are found
+  if (foodDonations.length === 0) {
+    return res.status(400).json(new ApiResponse(400, {}, "No Food Donations found", "false"));
+  }
+
+  // Return active food donations if found
+  return res.status(200).json(new ApiResponse(200, foodDonations, "All Food Donations", "true"));
+});
+
 const getAllDonations = asyncHandler(async (req, res) => {
   const foodDonation = await FoodDonation.find();
-
+// console.log("hiiii")
   if (!foodDonation) {
     return res
       .status(201)
@@ -220,11 +230,43 @@ const getAllDonations = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
 });
 
+const getAllDonationsAccepted = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.find({isAccepted:true});
+ console.log(foodDonation)
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "No FOOd Donation", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
+})
+const getAllDonationsMissed = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.find({isMissed:true});
+ console.log(foodDonation)
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "No FOOd Donation", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
+})
 export {
   foodDonate,
   getNearByFood,
   addToWaitingList,
   assignDonationToUser,
   getAllDonations,
+<<<<<<< HEAD
   getFoodDonationById,
+=======
+  getAllDonationsActive,
+  getAllDonationsAccepted,
+  getAllDonationsMissed
+>>>>>>> 99d0dc42dce158c7cc33a657323422b132173028
 };
