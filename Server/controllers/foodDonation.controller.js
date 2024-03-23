@@ -2,9 +2,11 @@ import { FoodDonation } from "../models/foodDonation.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Location } from "../models/location.model.js";
+import { ObjectId } from "mongodb";
 
 const foodDonate = asyncHandler(async (req, res) => {
-  const { donorID, foodType, foodDetails, quantity, expirationDate, location } = req.body;
+  const { donorID, foodType, foodDetails, quantity, expirationDate, location } =
+    req.body;
   const { latitude, longitude, address } = location;
 
   // if (
@@ -37,7 +39,7 @@ const foodDonate = asyncHandler(async (req, res) => {
     foodDetails,
     quantity,
     expirationDate,
-    location:location_id,
+    location: location_id,
   });
 
   if (!foodDonateDetail) {
@@ -124,8 +126,21 @@ const getNearByFood = asyncHandler(async (req, res) => {
     );
 });
 
+const getFoodDonationById = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.findById(req.params.id);
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "Food Donation Not Found", "false"));
+  }
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "Food Donation Found", "true"));
+});
+
 const addToWaitingList = asyncHandler(async (req, res) => {
-  const { donationId } = req.params;
+  let { donationId, donorID } = req.params;
+  donorID = new ObjectId(donorID);
   const foodDonation = await FoodDonation.findById(donationId);
 
   if (!foodDonation) {
@@ -137,7 +152,7 @@ const addToWaitingList = asyncHandler(async (req, res) => {
   const addtoQue = await FoodDonation.findByIdAndUpdate(
     donationId,
     {
-      $push: { waitingList: req.user._id },
+      $push: { waitingList: donorID },
     },
     { new: true }
   );
@@ -211,4 +226,5 @@ export {
   addToWaitingList,
   assignDonationToUser,
   getAllDonations,
+  getFoodDonationById,
 };

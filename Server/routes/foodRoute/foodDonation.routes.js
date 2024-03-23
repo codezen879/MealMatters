@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { verifyJWT } from "../../middlewares/auth.middleware.js";
 
 import {
   foodDonate,
@@ -7,6 +6,7 @@ import {
   getAllDonations,
   addToWaitingList,
   assignDonationToUser,
+  getFoodDonationById,
 } from "../../controllers/foodDonation.controller.js";
 
 const router = Router();
@@ -14,9 +14,10 @@ const router = Router();
 router.route("/nearBy").post(getNearByFood);
 router.route("/foodDonate").post(foodDonate);
 router.route("/getAllDonations").get(getAllDonations);
-router.route("/addToWaitingList/:donationId").get(addToWaitingList);
+router.route("/addToWaitingList/:donationId/:donorID").get(addToWaitingList);
 router
   .route("/assignDonationToUser/:donationId/:userId")
   .get(assignDonationToUser);
+router.route("/getDonationById/:id").get(getFoodDonationById);
 
 export default router;
