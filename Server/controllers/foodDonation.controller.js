@@ -189,9 +189,21 @@ const assignDonationToUser = asyncHandler(async (req, res) => {
   return res.status(201).json(new ApiResponse(200, assign, "Assigned", "true"));
 });
 
+const getAllDonationsActive = asyncHandler(async (req, res) => {
+  const foodDonations = await FoodDonation.find({ isActive: true });
+
+  // Check if any active food donations are found
+  if (foodDonations.length === 0) {
+    return res.status(400).json(new ApiResponse(400, {}, "No Food Donations found", "false"));
+  }
+
+  // Return active food donations if found
+  return res.status(200).json(new ApiResponse(200, foodDonations, "All Food Donations", "true"));
+});
+
 const getAllDonations = asyncHandler(async (req, res) => {
   const foodDonation = await FoodDonation.find();
-console.log("hiiii")
+// console.log("hiiii")
   if (!foodDonation) {
     return res
       .status(201)
@@ -203,10 +215,39 @@ console.log("hiiii")
     .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
 });
 
+const getAllDonationsAccepted = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.find({isAccepted:true});
+ console.log(foodDonation)
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "No FOOd Donation", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
+})
+const getAllDonationsMissed = asyncHandler(async (req, res) => {
+  const foodDonation = await FoodDonation.find({isMissed:true});
+ console.log(foodDonation)
+  if (!foodDonation) {
+    return res
+      .status(201)
+      .json(new ApiResponse(400, {}, "No FOOd Donation", "false"));
+  }
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, foodDonation, "All Food Donations", "true"));
+})
 export {
   foodDonate,
   getNearByFood,
   addToWaitingList,
   assignDonationToUser,
   getAllDonations,
+  getAllDonationsActive,
+  getAllDonationsAccepted,
+  getAllDonationsMissed
 };

@@ -46,6 +46,12 @@ const Home = () => {
                             From Access to Empathy
                         </h2>
                         <div className="flex justify-center gap-3">
+                            <Link to='/dash'>  <button
+                                className="w-[150px] h-[100px] bg-green-500 text-white text-[24px] text-lg font-bold rounded-lg"
+                                onClick={handleDonateNow}>
+                                Our Donation
+                            </button></Link>
+                      
                             <button
                                 className="w-[150px] h-[100px] bg-green-500 text-white text-[24px] text-lg font-bold rounded-lg"
                                 onClick={handleDonateNow}>
